@@ -44,8 +44,13 @@ def extract_article_data(filepath):
     for tag in soup.find_all(class_="tag"):
         tags.append(tag.get_text(strip=True))
 
+    read_time = 1
+    if content:
+        words = len(content.get_text().split())
+        read_time = max(1, round(words / 200))
+
     filename = os.path.basename(filepath)
-    return {"title": title, "subtitle": subtitle, "date": date, "tags": tags, "file": filename}
+    return {"title": title, "subtitle": subtitle, "date": date, "tags": tags, "file": filename, "read_time": read_time}
 
 def build_card(article):
     tags_html = "".join(
@@ -54,7 +59,7 @@ def build_card(article):
     )
     return f"""
       <a class="card" href="articoli/{article['file']}">
-        <span class="card-date">{article['date']}</span>
+        <span class="card-date">{article['date']} &nbsp;·&nbsp; {article['read_time']} min</span>
         <h3>{article['title']}</h3>
         <p>{article['subtitle']}</p>
         <div class="tags">{tags_html}</div>
