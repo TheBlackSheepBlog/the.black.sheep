@@ -243,8 +243,39 @@ nav {
 .section-subtitle {
   color: var(--text-secondary);
   font-size: 0.95rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   font-family: var(--font-mono);
+}
+
+/* ---- Tag Filter ---- */
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  letter-spacing: 0.3px;
+}
+
+.filter-btn:hover {
+  color: var(--text-primary);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.filter-btn.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(0,255,136,0.05);
 }
 
 /* ---- Grid ---- */
