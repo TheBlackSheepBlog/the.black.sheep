@@ -1,126 +1,116 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="dark">
 <head>
+  <script>(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}document.documentElement.dataset.theme=t||'dark'})()</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Exchange on-prem: il rischio che dorme nella tua configurazione di default — The Black Sheep</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;900&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
   <nav>
     <a href="../index.html" class="logo">THE BLACK SHEEP</a>
-    <ul class="nav-links">
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="../index.html#articoli">Articoli</a></li>
-      <li><a href="https://github.com/TheBlackSheepBlog/the.black.sheep" target="_blank">GitHub</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#articoli">Articoli</a></li>
+        <li><a href="https://github.com/TheBlackSheepBlog/the.black.sheep" target="_blank">GitHub</a></li>
+      </ul>
+      <button id="theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon-dark" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="theme-icon-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
   </nav>
 
-  <div class="cover-image">
-    <img
-      src="../assets/images/splitperm.jpg"
-      alt="Exchange Split Permissions"
-      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-    >
-    <div class="cover-placeholder" style="display:none;">
-      <svg viewBox="0 0 64 64" fill="white" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="26" cy="30" rx="14" ry="12"/>
-        <ellipse cx="40" cy="26" rx="10" ry="9"/>
-        <circle cx="18" cy="22" r="8"/>
-        <circle cx="32" cy="18" r="7"/>
-        <circle cx="44" cy="20" r="6"/>
-        <rect x="20" y="40" width="5" height="12" rx="2"/>
-        <rect x="28" y="40" width="5" height="12" rx="2"/>
-        <rect x="36" y="38" width="5" height="11" rx="2"/>
-        <rect x="43" y="37" width="5" height="10" rx="2"/>
-      </svg>
-    </div>
-  </div>
-
-  <article>
-
-    <p class="article-meta">2026-03-06 <span>|</span> The Black Sheep</p>
-
-    <h1 class="article-title">Exchange on-prem: il rischio che dorme nella tua <em>configurazione di default</em></h1>
-
-    <p class="article-subtitle">
+  <header class="article-header">
+    <p class="article-meta">2026-03-06 | The Black Sheep</p>
+    <h1 class="article-page-title">Exchange on-prem: il rischio che dorme nella tua <span class="accent">configurazione di default</span></h1>
+    <p style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--text-secondary); margin-top: 1rem;">
       Ti sei mai chiesto quanti permessi ha Exchange sulla tua Active Directory? La risposta, nella maggior parte delle installazioni, è: troppi.
     </p>
+    <div class="tags" style="justify-content: center; margin-top: 1.5rem;">
+      <span class="tag green">Exchange</span>
+      <span class="tag orange">Shared Permissions Model</span>
+      <span class="tag blue">Active Directory</span>
+      <span class="tag purple">RBAC</span>
+      <span class="tag warm">Security</span>
+    </div>
+  </header>
 
-    <div class="tags article-tags">
-      <span class="tag">Exchange</span>
-      <span class="tag">Shared Permissions Model</span>
-      <span class="tag">Active Directory Split Permissions</span>
-      <span class="tag">RBAC</span>
-      <span class="tag">Security</span>
+  <img class="article-cover" src="../assets/images/splitperm.jpg" alt="Exchange Split Permissions" onerror="this.style.display='none'">
+
+  <article class="article-content">
+
+    <h2><span class="accent">//</span> Il rischio che nessuno nomina</h2>
+
+    <p>Si chiama <strong>Shared Permissions Model</strong> la configurazione con cui Exchange viene installato per impostazione predefinita. Funziona così: Exchange riceve permessi ampi direttamente sulla radice del dominio Active Directory, ereditati ovunque nell'alberatura AD.</p>
+
+    <p>In pratica significa che Exchange può resettare password, modificare gruppi critici, creare utenti con privilegi elevati. Non è un bug — è una scelta progettuale che semplifica la gestione quotidiana.</p>
+
+    <p>Il problema non è Exchange. È cosa succede se un attaccante lo compromette.</p>
+
+    <blockquote>In quel momento, tutto quello che Exchange può fare tecnicamente — l'attaccante può farlo con lui.</blockquote>
+
+    <h2><span class="accent">//</span> Perché quasi nessuno lo sa</h2>
+
+    <p>Non è negligenza. È che il problema è invisibile finché non viene sfruttato.</p>
+
+    <p>Exchange funziona. Le email arrivano. L'IT è occupato su altro. Nessuno ha mai avuto motivo di guardare i permessi sulla radice del dominio — e quindi nessuno li ha mai toccati.</p>
+
+    <p>Il rischio dorme tranquillo nella configurazione che il wizard di installazione ha scelto per te anni fa. Non quello che non conosci, ma quello che dai per scontato perché non ha mai causato problemi visibili.</p>
+
+    <h2><span class="accent">//</span> La soluzione: Active Directory Split Permissions</h2>
+
+    <p>Il principio è semplice: Exchange gestisce le caselle, AD gestisce le identità. Nessuno dei due ha accesso illimitato al territorio dell'altro. In pratica si ottiene in quattro passaggi.</p>
+
+    <p><strong>Audit.</strong> Prima di toccare qualsiasi configurazione, serve sapere chi sta usando i cmdlet che verranno disabilitati — comandi come <code>New-Mailbox</code> o <code>Add-DistributionGroupMember</code>. Script di automazione, processi IDM: bisogna saperlo prima, non dopo.</p>
+
+    <p><strong>Abilitazione Split Permissions.</strong> Un singolo comando di setup rimuove i permessi pericolosi da "Exchange Windows Permissions" e disconnette i server Exchange dai gruppi con accesso privilegiato sulla radice del dominio. È il passaggio che interrompe i percorsi di lateral movement verso la compromissione totale del dominio.</p>
+
+    <p><strong>Delega granulare.</strong> Exchange non ha più i permessi per scrivere in AD e genererà errori. La soluzione è creare un gruppo AD personalizzato, aggiungere i server Exchange, e assegnargli permessi solo sulle OU dove risiedono effettivamente gli utenti che Exchange deve gestire. Chirurgici, non sulla radice.</p>
+
+    <p><strong>Ripristino dei cmdlet via RBAC.</strong> Il modello Split Permissions nasconde alcuni comandi agli amministratori Exchange. Vanno riabilitati esplicitamente attraverso i Role Group — così chi gestisce le caselle continua a lavorare, ma Exchange opera solo dove ha permessi espliciti.</p>
+
+    <h2><span class="accent">//</span> Tre domande da fare al tuo team domani mattina</h2>
+
+    <p>Non devi sapere eseguire questi passaggi. Devi sapere se qualcuno nel tuo team li ha già considerati.</p>
+
+    <div class="insight-box fade-in">
+      <p><strong>Prima domanda:</strong> <em>"Stiamo usando il modello Shared Permissions o Split Permissions su Exchange?"</em> Se la risposta è "non lo so" o "credo Shared, è quello di default" — hai trovato il primo lavoro da fare.</p>
     </div>
 
-    <hr class="divider">
-
-    <div class="article-body">
-
-      <h2>Il rischio che nessuno nomina</h2>
-
-      <p>Si chiama <strong>Shared Permissions Model</strong> la configurazione con cui Exchange viene installato per impostazione predefinita. Funziona così: Exchange riceve permessi ampi direttamente sulla radice del dominio Active Directory, ereditati ovunque nell'alberatura AD.</p>
-
-      <p>In pratica significa che Exchange può resettare password, modificare gruppi critici, creare utenti con privilegi elevati. Non è un bug è una scelta progettuale che semplifica la gestione quotidiana.</p>
-
-      <p>Il problema non è Exchange. È cosa succede se un attaccante lo compromette.</p>
-
-      <blockquote>In quel momento, tutto quello che Exchange può fare tecnicamente l'attaccante può farlo con lui.</blockquote>
-
-      <h2>Perché quasi nessuno lo sa</h2>
-
-      <p>Non è negligenza. È che il problema è invisibile finché non viene sfruttato.</p>
-
-      <p>Exchange funziona. Le email arrivano. L'IT è occupato su altro. Nessuno ha mai avuto motivo di guardare i permessi sulla radice del dominio e quindi nessuno li ha mai toccati.</p>
-
-      <p>Il rischio dorme tranquillo nella configurazione che il wizard di installazione ha scelto per te anni fa. Non quello che non conosci, ma quello che dai per scontato perché non ha mai causato problemi visibili.</p>
-
-      <h2>La soluzione: Active Directory Split Permissions</h2>
-
-      <p>Il principio è semplice: Exchange gestisce le caselle, AD gestisce le identità. Nessuno dei due ha accesso illimitato al territorio dell'altro. In pratica si ottiene in quattro passaggi.</p>
-
-      <p><strong>Audit.</strong> Prima di toccare qualsiasi configurazione, serve sapere chi sta usando i cmdlet che verranno disabilitati comandi come <code>New-Mailbox</code> o <code>Add-DistributionGroupMember</code>. Script di automazione, processi IDM: bisogna saperlo prima, non dopo.</p>
-
-      <p><strong>Abilitazione Split Permissions.</strong> Un singolo comando di setup rimuove i permessi pericolosi da "Exchange Windows Permissions" e disconnette i server Exchange dai gruppi con accesso privilegiato sulla radice del dominio. È il passaggio che interrompe i percorsi di lateral movement verso la compromissione totale del dominio.</p>
-
-      <p><strong>Delega granulare.</strong> Exchange non ha più i permessi per scrivere in AD e genererà errori. La soluzione è creare un gruppo AD personalizzato, aggiungere i server Exchange, e assegnargli permessi solo sulle OU dove risiedono effettivamente gli utenti che Exchange deve gestire. Chirurgici, non sulla radice.</p>
-
-      <p><strong>Ripristino dei cmdlet via RBAC.</strong> Il modello Split Permissions nasconde alcuni comandi agli amministratori Exchange. Vanno riabilitati esplicitamente attraverso i Role Group così chi gestisce le caselle continua a lavorare, ma Exchange opera solo dove ha permessi espliciti.</p>
-
-      <h2>Tre domande da fare al tuo team domani mattina</h2>
-
-      <p>Non devi sapere eseguire questi passaggi. Devi sapere se qualcuno nel tuo team li ha già considerati.</p>
-
-      <p><strong>Prima domanda:</strong> <em>"Stiamo usando il modello Shared Permissions o Split Permissions su Exchange?"</em> Se la risposta è "non lo so" o "credo Shared, è quello di default" hai trovato il primo lavoro da fare.</p>
-
+    <div class="insight-box fade-in">
       <p><strong>Seconda domanda:</strong> <em>"Se un attaccante compromettesse un server Exchange oggi, fino a dove potrebbe spingersi in Active Directory?"</em> Questa domanda scomoda ha una risposta tecnica precisa. Chiedila.</p>
+    </div>
 
-      <p><strong>Terza domanda:</strong> <em>"Abbiamo mai fatto un audit dei permessi che Exchange ha sulla radice del dominio?"</em> Se la risposta è no, non è un problema è un punto di partenza.</p>
+    <div class="insight-box fade-in">
+      <p><strong>Terza domanda:</strong> <em>"Abbiamo mai fatto un audit dei permessi che Exchange ha sulla radice del dominio?"</em> Se la risposta è no, non è un problema — è un punto di partenza.</p>
+    </div>
 
-      <h2>Una riflessione finale</h2>
+    <h2><span class="accent">//</span> Una riflessione finale</h2>
 
-      <p>Nella mia esperienza, i rischi più difficili da affrontare non sono quelli nuovi. Sono quelli che esistono da anni, funzionano silenziosamente, e non hanno mai causato un problema visibile. Finché non lo fanno.</p>
+    <p>Nella mia esperienza, i rischi più difficili da affrontare non sono quelli nuovi. Sono quelli che esistono da anni, funzionano silenziosamente, e non hanno mai causato un problema visibile. Finché non lo fanno.</p>
 
-      <p>So che gli ambienti IT reali sono complessi. Le risorse sono poche. Non sempre esiste la possibilità di separare chi gestisce Exchange da chi gestisce il dominio specialmente in organizzazioni multi-sede dove le stesse persone indossano più cappelli contemporaneamente. Lo so. E non è una scusa.</p>
+    <p>So che gli ambienti IT reali sono complessi. Le risorse sono poche. Non sempre esiste la possibilità di separare chi gestisce Exchange da chi gestisce il dominio — specialmente in organizzazioni multi-sede dove le stesse persone indossano più cappelli contemporaneamente. Lo so. E non è una scusa.</p>
 
-      <p>Anzi: è esattamente in quegli ambienti che un attaccante si muove più facilmente. Perché la complessità operativa che rende difficile implementare i controlli è la stessa che rende difficile accorgersi di una compromissione in corso.</p>
+    <p>Anzi: è esattamente in quegli ambienti che un attaccante si muove più facilmente. Perché la complessità operativa che rende difficile implementare i controlli è la stessa che rende difficile accorgersi di una compromissione in corso.</p>
 
-      <blockquote>La configurazione di default non è mai una garanzia di sicurezza. È semplicemente la scelta che qualcun altro ha fatto per te, in un contesto diverso, con priorità diverse dalle tue.</blockquote>
+    <div class="conclusion-box fade-in">
+      <div class="quote">"La configurazione di default non è mai una garanzia di sicurezza. È semplicemente la scelta che qualcun altro ha fatto per te."</div>
+      <p style="color: var(--text-secondary); margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.8rem;">The Black Sheep</p>
+    </div>
 
-      <p>Quella consapevolezza è il primo livello di protezione reale.</p>
+    <h2><span class="accent">//</span> Appendice Tecnica — Script PowerShell</h2>
+    <span class="section-number">Per i team tecnici che implementano la configurazione</span>
 
-      <div class="appendix">
-        <p class="appendix-label">Appendice Tecnica — Script PowerShell</p>
-        <p class="appendix-sub">Questa sezione è destinata ai team tecnici che implementano la configurazione.</p>
-
-        <h3>Step 1 — Audit dei cmdlet in uso</h3>
-        <pre><code>$CsvPath = "C:\temp\SplitPermissionAdminAuditLog.csv"
+    <h3>Step 1 — Audit dei cmdlet in uso</h3>
+    <pre><code>$CsvPath = "C:\temp\SplitPermissionAdminAuditLog.csv"
 
 $Cmdlets = "Add-ADPermission","Remove-ADPermission","New-DistributionGroup",
            "Remove-DistributionGroup","Add-DistributionGroupMember",
@@ -138,13 +128,13 @@ $CSVs = Import-Csv -Path $CsvPath -Delimiter ";"
 $CSVs | Group-Object Caller
 $CSVs | Group-Object CmdletName</code></pre>
 
-        <h3>Step 2 — Abilitazione AD Split Permissions</h3>
-        <pre><code>Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareAD /ActiveDirectorySplitPermissions:true
+    <h3>Step 2 — Abilitazione AD Split Permissions</h3>
+    <pre><code>Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareAD /ActiveDirectorySplitPermissions:true
 
 # Per tornare indietro: sostituire :true con :false</code></pre>
 
-        <h3>Step 3 — Creazione gruppo AD e delega granulare</h3>
-        <pre><code>New-ADGroup `
+    <h3>Step 3 — Creazione gruppo AD e delega granulare</h3>
+    <pre><code>New-ADGroup `
     -Name "AD_Custom Exchange Split permissions replacement" `
     -GroupCategory Security `
     -GroupScope DomainLocal `
@@ -166,8 +156,8 @@ Add-ExchangeADSplitPermissionOnOU.ps1 `
     -PermissionType CreateUserAndContact `
     -Trustee "AD_Custom Exchange Split permissions replacement"</code></pre>
 
-        <h3>Step 4 — Ripristino cmdlet tramite Exchange RBAC</h3>
-        <pre><code>New-RoleGroup `
+    <h3>Step 4 — Ripristino cmdlet tramite Exchange RBAC</h3>
+    <pre><code>New-RoleGroup `
     -Name "SplitPermission Security Group Creation and Membership" `
     -Roles "Security Group Creation and Membership" `
     -Members "Organization Management","Recipient Management"
@@ -177,24 +167,33 @@ New-RoleGroup `
     -Roles "Mail Recipient Creation" `
     -Members "Organization Management","Recipient Management"</code></pre>
 
-        <h3>Note operative</h3>
-        <ul>
-          <li>Non accedere mai ai server Exchange (Tier 1) con account Domain Admin (Tier 0).</li>
-          <li>Esegui l'intera procedura in ambiente di test prima della produzione.</li>
-          <li>Dopo l'implementazione, usa PingCastle o Purple Knight per validare la nuova postura di sicurezza.</li>
-        </ul>
-      </div>
-
+    <div class="insight-box fade-in" style="border-left-color: var(--accent-warm);">
+      <p><strong>Note operative:</strong> Non accedere mai ai server Exchange (Tier 1) con account Domain Admin (Tier 0). Esegui l'intera procedura in ambiente di test prima della produzione. Dopo l'implementazione, usa PingCastle o Purple Knight per validare la nuova postura di sicurezza.</p>
     </div>
 
-    <div class="article-footer">
-      <a class="back-link" href="../index.html">← torna agli articoli</a>
-      <span class="article-byline">the.black.sheep</span>
+    <div style="margin-top: 3rem; display: flex; justify-content: space-between; align-items: center;">
+      <a href="../index.html" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); text-decoration: none; border: none; transition: color var(--transition);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">← torna agli articoli</a>
+      <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); opacity: 0.5;">the.black.sheep</span>
     </div>
 
   </article>
 
-  <footer>the.black.sheep &mdash; pubblicato su github pages</footer>
+  <footer>the.black.sheep &mdash; <a href="https://github.com/TheBlackSheepBlog/the.black.sheep">github</a></footer>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    toggle.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
