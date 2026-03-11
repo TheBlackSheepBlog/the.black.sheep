@@ -47,7 +47,7 @@
 
   <article class="article-content">
 
-    <h2><span class="accent">//</span> Il rischio che nessuno nomina</h2>
+    <h2>Il rischio che nessuno nomina</h2>
 
     <p>Si chiama <strong>Shared Permissions Model</strong> la configurazione con cui Exchange viene installato per impostazione predefinita. Funziona così: Exchange riceve permessi ampi direttamente sulla radice del dominio Active Directory, ereditati ovunque nell'alberatura AD.</p>
 
@@ -57,7 +57,7 @@
 
     <blockquote>In quel momento, tutto quello che Exchange può fare tecnicamente — l'attaccante può farlo con lui.</blockquote>
 
-    <h2><span class="accent">//</span> Perché quasi nessuno lo sa</h2>
+    <h2>Perché quasi nessuno lo sa</h2>
 
     <p>Non è negligenza. È che il problema è invisibile finché non viene sfruttato.</p>
 
@@ -65,7 +65,7 @@
 
     <p>Il rischio dorme tranquillo nella configurazione che il wizard di installazione ha scelto per te anni fa. Non quello che non conosci, ma quello che dai per scontato perché non ha mai causato problemi visibili.</p>
 
-    <h2><span class="accent">//</span> La soluzione: Active Directory Split Permissions</h2>
+    <h2>La soluzione: Active Directory Split Permissions</h2>
 
     <p>Il principio è semplice: Exchange gestisce le caselle, AD gestisce le identità. Nessuno dei due ha accesso illimitato al territorio dell'altro. In pratica si ottiene in quattro passaggi.</p>
 
@@ -77,7 +77,7 @@
 
     <p><strong>Ripristino dei cmdlet via RBAC.</strong> Il modello Split Permissions nasconde alcuni comandi agli amministratori Exchange. Vanno riabilitati esplicitamente attraverso i Role Group — così chi gestisce le caselle continua a lavorare, ma Exchange opera solo dove ha permessi espliciti.</p>
 
-    <h2><span class="accent">//</span> Tre domande da fare al tuo team domani mattina</h2>
+    <h2>Tre domande da fare al tuo team domani mattina</h2>
 
     <p>Non devi sapere eseguire questi passaggi. Devi sapere se qualcuno nel tuo team li ha già considerati.</p>
 
@@ -93,7 +93,7 @@
       <p><strong>Terza domanda:</strong> <em>"Abbiamo mai fatto un audit dei permessi che Exchange ha sulla radice del dominio?"</em> Se la risposta è no, non è un problema — è un punto di partenza.</p>
     </div>
 
-    <h2><span class="accent">//</span> Una riflessione finale</h2>
+    <h2>Una riflessione finale</h2>
 
     <p>Nella mia esperienza, i rischi più difficili da affrontare non sono quelli nuovi. Sono quelli che esistono da anni, funzionano silenziosamente, e non hanno mai causato un problema visibile. Finché non lo fanno.</p>
 
@@ -106,7 +106,7 @@
       <p style="color: var(--text-secondary); margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.8rem;">The Black Sheep</p>
     </div>
 
-    <h2><span class="accent">//</span> Appendice Tecnica — Script PowerShell</h2>
+    <h2>Appendice Tecnica — Script PowerShell</h2>
     <span class="section-number">Per i team tecnici che implementano la configurazione</span>
 
     <h3>Step 1 — Audit dei cmdlet in uso</h3>
