@@ -10,7 +10,7 @@ Questa guida spiega come risolvere il problema dell'ereditarietà dei permessi c
 - **Azione:** Aprire **Active Directory Users and Computers**, individuare l'oggetto, andare nel tab **Member Of** e rimuovere l'appartenenza ai gruppi protetti se l'account non deve più avere privilegi elevati.
 - **Motivo:** Se l'oggetto rimane membro di un gruppo protetto, il sistema continuerà a sovrascrivere i permessi. Rimuovendolo, si interrompe il meccanismo di protezione automatica per quell'oggetto specifico.
 
-**Step 3: Ripulire l'attributo adminCount**
+**Step 3: Ripulire l'attributo adminCount **
 
 - **Azione:**
     1. In **Active Directory Users and Computers**, abilitare **View** > **Advanced Features**.
