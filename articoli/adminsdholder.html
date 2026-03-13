@@ -1,0 +1,43 @@
+Questa guida spiega come risolvere il problema dell'ereditarietà dei permessi che viene disabilitata automaticamente su alcuni oggetti in Active Directory, un fenomeno causato dal meccanismo **AdminSDHolder**.
+
+**Step 1: Identificare se l'oggetto è un "Protected Object"**
+
+- **Azione:** Verificare se l'utente o il gruppo appartiene a gruppi amministrativi critici (es. **Domain Admins**, **Enterprise Admins**, **Schema Admins**, **Account Operators**, ecc.).
+- **Motivo:** Il processo **SDPROP** (Security Descriptor Propagation) controlla ogni 60 minuti tutti i membri di questi gruppi privilegiati per garantire che i loro permessi siano sicuri e uniformi. Se l'oggetto è in questa lista, l'ereditarietà verrà disabilitata forzatamente ogni ora, anche se riattivata manualmente.
+
+**Step 2: Rimuovere l'oggetto dai gruppi privilegiati (se non necessari)**
+
+- **Azione:** Aprire **Active Directory Users and Computers**, individuare l'oggetto, andare nel tab **Member Of** e rimuovere l'appartenenza ai gruppi protetti se l'account non deve più avere privilegi elevati.
+- **Motivo:** Se l'oggetto rimane membro di un gruppo protetto, il sistema continuerà a sovrascrivere i permessi. Rimuovendolo, si interrompe il meccanismo di protezione automatica per quell'oggetto specifico.
+
+**Step 3: Ripulire l'attributo adminCount**
+
+- **Azione:**
+    1. In **Active Directory Users and Computers**, abilitare **View** > **Advanced Features**.
+    2. Aprire le **Properties** dell'oggetto e andare sul tab **Attribute Editor**.
+    3. Cercare l'attributo `adminCount` e impostarne il valore a **0** oppure cliccare su **Clear**.
+- **Motivo:** Quando un oggetto viene protetto, AD imposta questo attributo a **1**. Anche dopo aver rimosso l'utente dai gruppi amministrativi, il valore rimane a 1; resettarlo è fondamentale per una corretta pulizia dell'oggetto, sebbene non riabiliti da solo l'ereditarietà.
+
+**Step 4: Riabilitare manualmente l'ereditarietà dei permessi**
+
+- **Azione:**
+    1. Nelle **Properties** dell'oggetto, andare nel tab **Security**.
+    2. Cliccare su **Advanced**.
+    3. Cliccare sul pulsante **Enable Inheritance** (o selezionare la spunta **Include inheritable permissions from the object's parent**).
+- **Motivo:** Il meccanismo AdminSDHolder non è in grado di "ripulire" dopo se stesso: una volta che l'ereditarietà è stata disabilitata, rimane tale anche se l'oggetto non è più protetto. È quindi necessario un intervento manuale per consentire all'oggetto di ricevere nuovamente i permessi dalla sua OU di appartenenza.
+
+**Step 5 (Opzionale): Forzare il processo SDPROP**
+
+- **Azione:** Se hai modificato il blueprint dei permessi nel container AdminSDHolder e vuoi che le modifiche siano applicate immediatamente a tutti gli oggetti protetti della domanda:
+    1. Aprire **LDP.EXE**.
+    2. Selezionare **Connection** > **Connect** (collegandosi al PDC Emulator) e poi **Connection** > **Bind**.
+    3. Andare su **Browse** > **Modify**. Lasciare il campo **DN** vuoto.
+    4. In **Attribute**, scrivere `runProtectAdminGroupsTask` (per Windows 2008 R2 o superiori) o `fixupInheritance`. In **Values**, scrivere **1**. Cliccare **Enter** e poi **Run**.
+- **Motivo:** Questo forza l'esecuzione immediata dell'algoritmo di protezione senza dover attendere l'intervallo standard di 60 minuti.
+
+**Soluzione Alternativa: Modifica del Blueprint (Scenario Avanzato)**
+
+Se l'oggetto **deve** rimanere protetto ma hai bisogno che determinati utenti (es. l'Help Desk) possano comunque gestirlo:
+
+- **Azione:** Aggiungi i permessi necessari direttamente sull'oggetto **AdminSDHolder** situato in `CN=System,DC=dominio,DC=com`.
+- **Motivo:** Questo oggetto funge da "stampino" (blueprint). Ogni permesso aggiunto qui verrà propagato automaticamente dal processo SDPROP a tutti i Protected Objects del dominio entro un'ora
