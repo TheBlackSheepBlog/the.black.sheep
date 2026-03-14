@@ -175,6 +175,10 @@
 
   </article>
 
+  <button class="back-to-top" id="back-to-top" aria-label="Torna su">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
   <footer>
     <span>the.black.sheep</span>
     <span>pubblicato su <a href="https://github.com/TheBlackSheepBlog/the.black.sheep">github</a></span>
@@ -194,6 +198,14 @@
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       progressBar.style.width = (scrollTop / docHeight * 100) + "%";
+    });
+
+    const backToTop = document.getElementById("back-to-top");
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("visible", window.scrollY > 400);
+    });
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     const observer = new IntersectionObserver((entries) => {
