@@ -5,16 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AdminSDHolder — The Black Sheep</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;900&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <meta name="description" content="Riabiliti l'ereditarietà su un oggetto AD e un'ora dopo è di nuovo disabilitata. Non è un bug. È SDPROP.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="The Black Sheep">
+  <meta property="og:title" content="AdminSDHolder: perché i tuoi permessi spariscono ogni 60 minuti.">
+  <meta property="og:description" content="Riabiliti l'ereditarietà su un oggetto AD e un'ora dopo è di nuovo disabilitata. Non è un bug. È SDPROP.">
+  <meta property="og:url" content="https://theblacksheepblog.github.io/the.black.sheep/articoli/adminsdholder.html">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
   <nav>
-    <a href="../index.html" class="logo">THE BLACK SHEEP</a>
+    <a href="../index.html" class="logo">The Black Sheep</a>
     <div class="nav-right">
       <ul class="nav-links">
         <li><a href="../index.html">Home</a></li>
@@ -30,15 +34,15 @@
 
   <header class="article-header">
     <p class="article-meta">2026-03-13 | The Black Sheep</p>
-    <h1 class="article-page-title">AdminSDHolder: perché i tuoi permessi<br>spariscono ogni <span class="accent">60 minuti</span>.</h1>
-    <p style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--text-secondary); margin-top: 1rem;">
+    <h1 class="article-page-title">AdminSDHolder: perché i tuoi permessi<br>spariscono ogni <mark>60 minuti</mark>.</h1>
+    <p style="font-family:'Instrument Serif',serif; font-style:italic; font-size:1.05rem; color:var(--ink-light); margin-top:1.2rem; line-height:1.7;">
       Riabiliti l'ereditarietà su un oggetto AD e un'ora dopo è di nuovo disabilitata. Non è un bug. È SDPROP — e devi sapere come funziona per smettere di combatterlo alla cieca.
     </p>
-    <div class="tags" style="justify-content: center; margin-top: 1.5rem;">
-      <span class="tag blue">Active Directory</span>
-      <span class="tag warm">Security</span>
-      <span class="tag purple">RBAC</span>
-      <span class="tag blue">IT Career</span>
+    <div class="tags" style="margin-top:1.5rem;">
+      <span class="tag">Active Directory</span>
+      <span class="tag">Security</span>
+      <span class="tag">RBAC</span>
+      <span class="tag">IT Career</span>
     </div>
   </header>
 
@@ -60,15 +64,15 @@
 
     <div class="stats-row fade-in">
       <div class="stat-card">
-        <div class="stat-number red">60</div>
+        <div class="stat-number">60</div>
         <div class="stat-label">minuti tra ogni run SDPROP</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number purple">1</div>
+        <div class="stat-number">1</div>
         <div class="stat-label">valore adminCount se protetto</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number green">0</div>
+        <div class="stat-number">0</div>
         <div class="stat-label">valore adminCount dopo pulizia</div>
       </div>
     </div>
@@ -101,7 +105,7 @@
       <div class="pipeline-step">
         <div class="step-num">03</div>
         <div class="step-name">Resetta il valore</div>
-        <div class="step-detail">Imposta adminCount a 0 oppure clicca Clear. Questo è fondamentale per una corretta pulizia dell'oggetto.</div>
+        <div class="step-detail">Imposta adminCount a 0 oppure clicca Clear. Fondamentale per una corretta pulizia dell'oggetto.</div>
       </div>
     </div>
 
@@ -160,18 +164,20 @@
     </div>
 
     <div class="conclusion-box fade-in">
-      <div class="quote">"Non combattere AdminSDHolder.<br>Capisci come funziona e usalo come strumento."</div>
-      <p style="color: var(--text-secondary); margin-top: 0.8rem; font-family: var(--font-mono); font-size: 0.8rem;">The Black Sheep</p>
+      <div class="quote">Non combattere AdminSDHolder.<br>Capisci come funziona e usalo come strumento.</div>
     </div>
 
-    <div style="margin-top: 3rem; display: flex; justify-content: space-between; align-items: center;">
-      <a href="../index.html" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); text-decoration: none; transition: color var(--transition);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">← torna agli articoli</a>
-      <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); opacity: 0.5;">the.black.sheep</span>
+    <div style="margin-top:3rem; display:flex; justify-content:space-between; align-items:center;">
+      <a href="../index.html" style="font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--ink-light); text-decoration:none;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink-light)'">← Torna agli articoli</a>
+      <span style="font-family:'Barlow Condensed',sans-serif; font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; color:var(--ink-xlight);">The Black Sheep</span>
     </div>
 
   </article>
 
-  <footer>the.black.sheep &mdash; <a href="https://github.com/TheBlackSheepBlog/the.black.sheep">github</a></footer>
+  <footer>
+    <span>the.black.sheep</span>
+    <span>pubblicato su <a href="https://github.com/TheBlackSheepBlog/the.black.sheep">github</a></span>
+  </footer>
 
   <script>
     const toggle = document.getElementById('theme-toggle');
@@ -181,7 +187,6 @@
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
     });
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
