@@ -5,15 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>La falla silenziosa: i rischi dell'account Domain Join in Active Directory — The Black Sheep</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;900&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <meta name="description" content="Ogni volta che aggiungi un dispositivo al dominio, stai concedendo permessi che nessuno ti ha mai spiegato. E gli attaccanti lo sanno.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="The Black Sheep">
+  <meta property="og:title" content="La falla silenziosa: i rischi dell'account Domain Join in Active Directory">
+  <meta property="og:description" content="Ogni volta che aggiungi un dispositivo al dominio, stai concedendo permessi che nessuno ti ha mai spiegato.">
+  <meta property="og:image" content="https://theblacksheepblog.github.io/the.black.sheep/assets/images/domain-join-risks.jpg">
+  <meta property="og:url" content="https://theblacksheepblog.github.io/the.black.sheep/articoli/domain-join-risks.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://theblacksheepblog.github.io/the.black.sheep/assets/images/domain-join-risks.jpg">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+
   <nav>
-    <a href="../index.html" class="logo">THE BLACK SHEEP</a>
+    <a href="../index.html" class="logo">The Black Sheep</a>
     <div class="nav-right">
       <ul class="nav-links">
         <li><a href="../index.html">Home</a></li>
@@ -29,20 +36,21 @@
 
   <header class="article-header">
     <p class="article-meta">2026-03-13 | The Black Sheep</p>
-    <h1 class="article-page-title">La falla silenziosa:<br>i rischi dell'account Domain Join<br>in <span class="accent">Active Directory</span>.</h1>
-    <p style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--text-secondary); margin-top: 1rem;">
+    <h1 class="article-page-title">La falla silenziosa:<br>i rischi dell'account Domain Join<br>in <mark>Active Directory</mark>.</h1>
+    <p style="font-family:'Instrument Serif',serif; font-style:italic; font-size:1.05rem; color:var(--ink-light); margin-top:1.2rem; line-height:1.7;">
       Ogni volta che aggiungi un dispositivo al dominio, stai concedendo permessi che nessuno ti ha mai spiegato. E gli attaccanti lo sanno.
     </p>
-    <div class="tags" style="justify-content: center; margin-top: 1.5rem;">
-      <span class="tag orange">Active Directory</span>
-      <span class="tag blue">Security</span>
-      <span class="tag warm">Blue Team</span>
+    <div class="tags" style="margin-top:1.5rem;">
+      <span class="tag">Active Directory</span>
+      <span class="tag">Security</span>
+      <span class="tag">Blue Team</span>
     </div>
   </header>
 
-  <img class="article-cover" src="../assets/images/domain-join-risks.jpg" alt="La falla silenziosa: i rischi dell'account Domain Join in Active Directory" onerror="this.style.display='none'">
+  <img class="article-cover" src="../assets/images/domain-join-risks.jpg" alt="La falla silenziosa" onerror="this.style.display='none'">
 
   <article class="article-content">
+
     <p>Un tecnico dell'Help Desk scarta un nuovo laptop aziendale. Avvia l'installazione di Windows 11. Preme F12 per il boot PXE.</p>
 
     <p>Sta seguendo alla lettera le linee guida Microsoft.</p>
@@ -51,19 +59,19 @@
 
     <div class="stats-row fade-in">
       <div class="stat-card">
-        <div class="stat-number orange">10</div>
+        <div class="stat-number">10</div>
         <div class="stat-label">macchine che ogni utente può aggiungere al dominio (default)</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number red">100%</div>
+        <div class="stat-number">100%</div>
         <div class="stat-label">degli oggetti computer controllati dall'account di join</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number purple">3</div>
+        <div class="stat-number">3</div>
         <div class="stat-label">vettori di attacco sfruttabili dalla configurazione default</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number cyan">0</div>
+        <div class="stat-number">0</div>
         <div class="stat-label">exploit necessari per compromettere il dominio</div>
       </div>
     </div>
@@ -82,17 +90,13 @@
       <p><strong>Concetto chiave:</strong> La proprietà di un oggetto in Active Directory garantisce permessi impliciti che prevalgono sulle ACL ereditate. Questo comportamento è intrinseco all'architettura del sistema, non un bug configurabile.</p>
     </div>
 
-    <p>Non è una configurazione sbagliata. È la configurazione di default.</p>
-
-    <p>E quella configurazione apre tre vettori di attacco distinti. Tutti documentati. Tutti sfruttabili. Tutti ignorati dalla maggior parte delle organizzazioni.</p>
+    <p>Non è una configurazione sbagliata. È la configurazione di default. E quella configurazione apre tre vettori di attacco distinti. Tutti documentati. Tutti sfruttabili. Tutti ignorati dalla maggior parte delle organizzazioni.</p>
 
     <h2>Vettore 1: le credenziali in chiaro</h2>
 
     <p>PXE, MDT, unattend.xml. Durante la sequenza di provisioning, le credenziali dell'account di domain join vengono trasmesse o memorizzate in chiaro negli script di installazione.</p>
 
-    <p>L'attacco non richiede exploit sofisticati. Un dispositivo collegato alla rete, i file distribuiti durante la fase di provisioning intercettati, la password letta.</p>
-
-    <p>Fatto.</p>
+    <p>L'attacco non richiede exploit sofisticati. Un dispositivo collegato alla rete, i file distribuiti durante la fase di provisioning intercettati, la password letta. Fatto.</p>
 
     <p>Il file unattend.xml viene salvato su disco durante l'installazione. In alcuni casi rimane nella directory <code>C:\Windows\Panther</code> anche dopo il completamento del processo. Se l'account locale ha accesso a quella directory, chiunque acceda alla macchina può estrarre le credenziali.</p>
 
@@ -110,10 +114,6 @@
     </div>
 
     <p>Chiunque sia posizionato nella rete interna ha tutto quello che gli serve per compromettere l'account. Da lì in poi, la catena si costruisce da sola.</p>
-
-    <p>Un attaccante con quelle credenziali può aggiungere al dominio quante macchine vuole. Può configurare dispositivi rogue. Può manipolare gli oggetti computer esistenti.</p>
-
-    <p>Ma il vero problema non è l'aggiunta di nuovi dispositivi. È il controllo retroattivo su quelli già esistenti.</p>
 
     <h2>Vettore 2: il furto delle password LAPS</h2>
 
@@ -133,19 +133,13 @@
       </table></div>
     </div>
 
-    <p>Il problema non è LAPS. È che non hai tolto all'account di join il permesso di leggere quello che non dovrebbe leggere.</p>
-
-    <p>Windows LAPS, la versione moderna integrata nel sistema operativo, mitiga parzialmente questo rischio salvando le credenziali cifrate in <code>msLAPS-Password</code>. Ma se stai ancora usando la versione legacy, sei esposto.</p>
-
-    <p>E anche se usi Windows LAPS, l'account di join mantiene permessi di scrittura su attributi che non dovrebbe toccare. Tipo quello che abilita il terzo vettore.</p>
+    <div class="warning-box fade-in">
+      <p><strong>Attenzione:</strong> Se stai ancora usando la versione legacy di LAPS sei esposto. Windows LAPS mitiga parzialmente questo rischio salvando le credenziali cifrate in <code>msLAPS-Password</code>, ma l'account di join mantiene comunque permessi di scrittura su attributi che non dovrebbe toccare.</p>
+    </div>
 
     <h2>Vettore 3: RBCD e Shadow Credentials</h2>
 
-    <p>Qui la catena si completa.</p>
-
-    <p>Sfruttando i diritti di scrittura derivanti dalla proprietà dell'oggetto computer, un attaccante può manipolare l'attributo <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>. Questo permette di configurare una Resource-Based Constrained Delegation che autorizza un account controllato dall'attaccante a impersonare qualsiasi utente verso la macchina compromessa.</p>
-
-    <p>Domain Admin inclusi.</p>
+    <p>Sfruttando i diritti di scrittura derivanti dalla proprietà dell'oggetto computer, un attaccante può manipolare l'attributo <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>. Questo permette di configurare una Resource-Based Constrained Delegation che autorizza un account controllato dall'attaccante a impersonare qualsiasi utente verso la macchina compromessa. Domain Admin inclusi.</p>
 
     <div class="pipeline-steps fade-in">
       <div class="pipeline-step">
@@ -155,29 +149,25 @@
       </div>
       <div class="pipeline-step">
         <div class="step-num">02</div>
-        <div class="step-name">Enumerazione degli oggetti</div>
-        <div class="step-detail">Con le credenziali dell'account di join, l'attaccante enumera tutti gli oggetti computer di cui è proprietario. Ogni macchina aggiunta al dominio è un bersaglio valido.</div>
+        <div class="step-name">Enumerazione oggetti</div>
+        <div class="step-detail">Con le credenziali dell'account di join, l'attaccante enumera tutti gli oggetti computer di cui è proprietario. Ogni macchina aggiunta è un bersaglio valido.</div>
       </div>
       <div class="pipeline-step">
         <div class="step-num">03</div>
         <div class="step-name">Configurazione RBCD</div>
-        <div class="step-detail">L'attaccante modifica l'attributo msDS-AllowedToActOnBehalfOfOtherIdentity su un computer target, configurando la delega verso un account che controlla (es. una macchina rogue aggiunta al dominio).</div>
+        <div class="step-detail">L'attaccante modifica msDS-AllowedToActOnBehalfOfOtherIdentity sul computer target, configurando la delega verso un account che controlla.</div>
       </div>
       <div class="pipeline-step">
         <div class="step-num">04</div>
         <div class="step-name">Impersonificazione</div>
-        <div class="step-detail">Tramite la delega configurata, l'attaccante richiede un Service Ticket per il target impersonando un Domain Admin. Kerberos autentica la richiesta perché la configurazione RBCD lo autorizza.</div>
+        <div class="step-detail">Tramite la delega configurata, l'attaccante richiede un Service Ticket impersonando un Domain Admin. Kerberos autentica la richiesta perché la configurazione RBCD lo autorizza.</div>
       </div>
       <div class="pipeline-step">
         <div class="step-num">05</div>
         <div class="step-name">Escalation completa</div>
-        <div class="step-detail">Con privilegi amministrativi locali sul target, l'attaccante estrae credenziali, ticket Kerberos e hash di sessioni privilegiate. Il movimento laterale verso altri sistemi critici è ora possibile.</div>
+        <div class="step-detail">Con privilegi amministrativi locali sul target, l'attaccante estrae credenziali, ticket Kerberos e hash di sessioni privilegiate.</div>
       </div>
     </div>
-
-    <p>Una volta ottenuto il controllo amministrativo locale tramite RBCD o Shadow Credentials, l'attaccante estrae ticket Kerberos e hash di sessioni privilegiate.</p>
-
-    <p>La catena è completa: dal boot PXE alla compromissione totale del dominio. Senza exploit. Solo configurazioni di default.</p>
 
     <div class="insight-box fade-in">
       <p><strong>Meccanismo tecnico:</strong> RBCD sfrutta il protocollo S4U2Self e S4U2Proxy di Kerberos. Quando msDS-AllowedToActOnBehalfOfOtherIdentity è configurato, il servizio designato può richiedere un ticket per qualsiasi utente senza che l'utente ne sia a conoscenza. Non servono credenziali dell'utente target, solo la configurazione dell'attributo.</p>
@@ -185,15 +175,11 @@
 
     <h2>Le tre mitigazioni obbligatorie</h2>
 
-    <p>Non basta capire il problema. Serve risolverlo. Questi sono i tre interventi mandatori.</p>
+    <span class="section-number">Non raccomandazioni. Prerequisiti.</span>
 
-    <p>Non sono raccomandazioni. Sono prerequisiti per qualsiasi ambiente AD che vuole definirsi sicuro.</p>
+    <h3>Mitigazione 1 — Azzeramento della ms-DS-MachineAccountQuota</h3>
 
-    <h3><span class="section-number">Mitigazione 1</span> Azzeramento della ms-DS-MachineAccountQuota</h3>
-
-    <p>Il primo passo è impedire che gli utenti standard possano aggiungere macchine al dominio. Di default il valore è 10: chiunque nel dominio può creare fino a dieci oggetti computer.</p>
-
-    <p>Azzerarlo elimina questa superficie di attacco.</p>
+    <p>Il primo passo è impedire che gli utenti standard possano aggiungere macchine al dominio. Di default il valore è 10: chiunque nel dominio può creare fino a dieci oggetti computer. Azzerarlo elimina questa superficie di attacco.</p>
 
     <div class="code-block" data-lang="powershell">
       <div class="code-wrap"><table>
@@ -204,75 +190,51 @@
       </table></div>
     </div>
 
-    <p>Questo non blocca l'account di domain join. L'account di join deve comunque avere i permessi espliciti di creazione oggetti computer nell'OU di destinazione.</p>
+    <h3>Mitigazione 2 — Protezione degli attributi LAPS tramite ACE di tipo Deny</h3>
 
-    <p>Ma blocca chiunque altro. Inclusi gli account compromessi che non dispongono di permessi espliciti.</p>
-
-    <h3><span class="section-number">Mitigazione 2</span> Protezione degli attributi LAPS tramite ACE di tipo Deny</h3>
-
-    <p>Per bloccare la lettura di <code>ms-Mcs-AdmPwd</code> da parte dell'account di join, applica un rifiuto esplicito sull'OU di destinazione.</p>
-
-    <p>Un Deny ACE ha precedenza su qualsiasi Allow ACE ereditato. Anche sui permessi derivanti dalla proprietà dell'oggetto.</p>
+    <p>Per bloccare la lettura di <code>ms-Mcs-AdmPwd</code> da parte dell'account di join, applica un rifiuto esplicito sull'OU di destinazione. Un Deny ACE ha precedenza su qualsiasi Allow ACE ereditato — anche sui permessi derivanti dalla proprietà dell'oggetto.</p>
 
     <div class="code-block" data-lang="powershell">
       <div class="code-wrap"><table>
         <tr><td class="ln">1</td><td class="code"><span class="cv">$entity</span>    = <span class="cs">"domainjoin"</span></td></tr>
         <tr><td class="ln">2</td><td class="code"><span class="cv">$guid</span>      = <span class="cs">"ad27bc2b-cf04-424d-b705-5df50c7d5d37"</span> <span class="cc"># GUID ms-Mcs-AdmPwd</span></td></tr>
         <tr><td class="ln">3</td><td class="code"><span class="cv">$targetOU</span>  = <span class="cs">"AD:\OU=Workstations,DC=test,DC=local"</span></td></tr>
-        <tr><td class="ln">4</td><td class="code"></td></tr>
-        <tr><td class="ln">5</td><td class="code"><span class="cv">$identityReference</span> = <span class="ck">New-Object</span> System.Security.Principal.NTAccount(<span class="cv">$entity</span>)</td></tr>
-        <tr><td class="ln">6</td><td class="code"><span class="cv">$adRights</span>          = [System.DirectoryServices.ActiveDirectoryRights]::<span class="cs">ReadProperty</span></td></tr>
-        <tr><td class="ln">7</td><td class="code"><span class="cv">$accessControlType</span> = [System.Security.AccessControl.AccessControlType]::<span class="cs">Deny</span></td></tr>
-        <tr><td class="ln">8</td><td class="code"></td></tr>
-        <tr><td class="ln">9</td><td class="code"><span class="cv">$ace</span> = <span class="ck">New-Object</span> System.DirectoryServices.ActiveDirectoryAccessRule(</td></tr>
-        <tr><td class="ln">10</td><td class="code">    <span class="cv">$identityReference</span>, <span class="cv">$adRights</span>, <span class="cv">$accessControlType</span>, (<span class="ck">New-Object</span> Guid <span class="cv">$guid</span>)</td></tr>
-        <tr><td class="ln">11</td><td class="code">)</td></tr>
-        <tr><td class="ln">12</td><td class="code"></td></tr>
-        <tr><td class="ln">13</td><td class="code"><span class="cv">$acl</span> = <span class="ck">Get-Acl</span> <span class="cv">-Path</span> <span class="cv">$targetOU</span></td></tr>
-        <tr><td class="ln">14</td><td class="code"><span class="cv">$acl</span>.<span class="cf">AddAccessRule</span>(<span class="cv">$ace</span>)</td></tr>
-        <tr><td class="ln">15</td><td class="code"><span class="ck">Set-Acl</span> <span class="cv">-Path</span> <span class="cv">$targetOU</span> <span class="cv">-AclObject</span> <span class="cv">$acl</span></td></tr>
+        <tr><td class="ln">4</td><td class="code"><span class="cv">$identityReference</span> = <span class="ck">New-Object</span> System.Security.Principal.NTAccount(<span class="cv">$entity</span>)</td></tr>
+        <tr><td class="ln">5</td><td class="code"><span class="cv">$adRights</span>          = [System.DirectoryServices.ActiveDirectoryRights]::<span class="cs">ReadProperty</span></td></tr>
+        <tr><td class="ln">6</td><td class="code"><span class="cv">$accessControlType</span> = [System.Security.AccessControl.AccessControlType]::<span class="cs">Deny</span></td></tr>
+        <tr><td class="ln">7</td><td class="code"><span class="cv">$ace</span> = <span class="ck">New-Object</span> System.DirectoryServices.ActiveDirectoryAccessRule(</td></tr>
+        <tr><td class="ln">8</td><td class="code">    <span class="cv">$identityReference</span>, <span class="cv">$adRights</span>, <span class="cv">$accessControlType</span>, (<span class="ck">New-Object</span> Guid <span class="cv">$guid</span>)</td></tr>
+        <tr><td class="ln">9</td><td class="code">)</td></tr>
+        <tr><td class="ln">10</td><td class="code"><span class="cv">$acl</span> = <span class="ck">Get-Acl</span> <span class="cv">-Path</span> <span class="cv">$targetOU</span></td></tr>
+        <tr><td class="ln">11</td><td class="code"><span class="cv">$acl</span>.<span class="cf">AddAccessRule</span>(<span class="cv">$ace</span>)</td></tr>
+        <tr><td class="ln">12</td><td class="code"><span class="ck">Set-Acl</span> <span class="cv">-Path</span> <span class="cv">$targetOU</span> <span class="cv">-AclObject</span> <span class="cv">$acl</span></td></tr>
       </table></div>
     </div>
 
-    <p>Il GUID <code>ad27bc2b-cf04-424d-b705-5df50c7d5d37</code> identifica univocamente l'attributo <code>ms-Mcs-AdmPwd</code> nello schema di Active Directory. Usare il GUID invece del nome garantisce che il permesso sia applicato correttamente anche in ambienti multilingua.</p>
+    <h3>Mitigazione 3 — Blocco dell'abuso della delega (RBCD)</h3>
 
-    <p>Se usi Windows LAPS, applica lo stesso principio su <code>msLAPS-Password</code> (GUID: <code>5c440e8e-e58b-4c21-8cf8-3e8e9e0e9e8e</code>).</p>
-
-    <h3><span class="section-number">Mitigazione 3</span> Blocco dell'abuso della delega (RBCD)</h3>
-
-    <p>Per prevenire la manipolazione di <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>, applica un Deny sulla scrittura di quell'attributo.</p>
-
-    <p>Stesso meccanismo del fix precedente, GUID diverso.</p>
+    <p>Per prevenire la manipolazione di <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>, applica un Deny sulla scrittura di quell'attributo. Stesso meccanismo del fix precedente, GUID diverso.</p>
 
     <div class="code-block" data-lang="powershell">
       <div class="code-wrap"><table>
         <tr><td class="ln">1</td><td class="code"><span class="cv">$entity</span>    = <span class="cs">"domainjoin"</span></td></tr>
         <tr><td class="ln">2</td><td class="code"><span class="cv">$guid</span>      = <span class="cs">"3f78c3e5-f79a-46bd-a0b8-9d18116ddc79"</span> <span class="cc"># GUID msDS-AllowedToActOnBehalfOfOtherIdentity</span></td></tr>
         <tr><td class="ln">3</td><td class="code"><span class="cv">$targetOU</span>  = <span class="cs">"AD:\OU=Workstations,DC=test,DC=local"</span></td></tr>
-        <tr><td class="ln">4</td><td class="code"></td></tr>
-        <tr><td class="ln">5</td><td class="code"><span class="cv">$identityReference</span> = <span class="ck">New-Object</span> System.Security.Principal.NTAccount(<span class="cv">$entity</span>)</td></tr>
-        <tr><td class="ln">6</td><td class="code"><span class="cv">$adRights</span>          = [System.DirectoryServices.ActiveDirectoryRights]::<span class="cs">WriteProperty</span></td></tr>
-        <tr><td class="ln">7</td><td class="code"><span class="cv">$accessControlType</span> = [System.Security.AccessControl.AccessControlType]::<span class="cs">Deny</span></td></tr>
-        <tr><td class="ln">8</td><td class="code"></td></tr>
-        <tr><td class="ln">9</td><td class="code"><span class="cv">$ace</span> = <span class="ck">New-Object</span> System.DirectoryServices.ActiveDirectoryAccessRule(</td></tr>
-        <tr><td class="ln">10</td><td class="code">    <span class="cv">$identityReference</span>, <span class="cv">$adRights</span>, <span class="cv">$accessControlType</span>, (<span class="ck">New-Object</span> Guid <span class="cv">$guid</span>)</td></tr>
-        <tr><td class="ln">11</td><td class="code">)</td></tr>
-        <tr><td class="ln">12</td><td class="code"></td></tr>
-        <tr><td class="ln">13</td><td class="code"><span class="cv">$acl</span> = <span class="ck">Get-Acl</span> <span class="cv">-Path</span> <span class="cv">$targetOU</span></td></tr>
-        <tr><td class="ln">14</td><td class="code"><span class="cv">$acl</span>.<span class="cf">AddAccessRule</span>(<span class="cv">$ace</span>)</td></tr>
-        <tr><td class="ln">15</td><td class="code"><span class="ck">Set-Acl</span> <span class="cv">-Path</span> <span class="cv">$targetOU</span> <span class="cv">-AclObject</span> <span class="cv">$acl</span></td></tr>
+        <tr><td class="ln">4</td><td class="code"><span class="cv">$identityReference</span> = <span class="ck">New-Object</span> System.Security.Principal.NTAccount(<span class="cv">$entity</span>)</td></tr>
+        <tr><td class="ln">5</td><td class="code"><span class="cv">$adRights</span>          = [System.DirectoryServices.ActiveDirectoryRights]::<span class="cs">WriteProperty</span></td></tr>
+        <tr><td class="ln">6</td><td class="code"><span class="cv">$accessControlType</span> = [System.Security.AccessControl.AccessControlType]::<span class="cs">Deny</span></td></tr>
+        <tr><td class="ln">7</td><td class="code"><span class="cv">$ace</span> = <span class="ck">New-Object</span> System.DirectoryServices.ActiveDirectoryAccessRule(</td></tr>
+        <tr><td class="ln">8</td><td class="code">    <span class="cv">$identityReference</span>, <span class="cv">$adRights</span>, <span class="cv">$accessControlType</span>, (<span class="ck">New-Object</span> Guid <span class="cv">$guid</span>)</td></tr>
+        <tr><td class="ln">9</td><td class="code">)</td></tr>
+        <tr><td class="ln">10</td><td class="code"><span class="cv">$acl</span> = <span class="ck">Get-Acl</span> <span class="cv">-Path</span> <span class="cv">$targetOU</span></td></tr>
+        <tr><td class="ln">11</td><td class="code"><span class="cv">$acl</span>.<span class="cf">AddAccessRule</span>(<span class="cv">$ace</span>)</td></tr>
+        <tr><td class="ln">12</td><td class="code"><span class="ck">Set-Acl</span> <span class="cv">-Path</span> <span class="cv">$targetOU</span> <span class="cv">-AclObject</span> <span class="cv">$acl</span></td></tr>
       </table></div>
     </div>
-
-    <p>Questo blocca anche l'abuso tramite Shadow Credentials, che sfrutta la scrittura su <code>msDS-KeyCredentialLink</code>. Puoi applicare un Deny specifico anche per quell'attributo se vuoi essere ancora più granulare.</p>
-
-    <p>Ma il principio rimane lo stesso: rimuovi dalla configurazione di default tutto quello che non serve al processo di join. L'account deve creare oggetti computer. Non deve controllarli a vita.</p>
 
     <h2>Verifica e monitoraggio</h2>
 
     <p>Applicare le mitigazioni è il primo passo. Verificare che funzionino è il secondo.</p>
-
-    <p>Dopo aver configurato i Deny ACE, testa l'effettiva impossibilità di lettura e scrittura degli attributi protetti. Usa un account con le credenziali di domain join e prova a leggere <code>ms-Mcs-AdmPwd</code> da un oggetto computer.</p>
 
     <div class="code-block" data-lang="powershell">
       <div class="code-wrap"><table>
@@ -287,17 +249,43 @@
 
     <p>Monitora i log di sicurezza per tentativi di accesso agli attributi protetti. Event ID 4662 registra l'accesso agli oggetti di Active Directory. Filtra per gli attributi critici e configura alert automatici.</p>
 
-    <p>La sicurezza non è un'attività one-shot. È un processo continuo di hardening, verifica e risposta.</p>
-
     <h2>La lezione più importante</h2>
 
     <p>La sicurezza di Active Directory non può essere un sottoprodotto delle impostazioni di fabbrica.</p>
 
     <p>Il processo di domain join, lasciato ai suoi automatismi predefiniti, non è un punto di partenza sicuro. È un anello debole che collega il tuo provisioning alla compromissione totale del dominio.</p>
 
-    <p>Microsoft ha progettato Active Directory per funzionare out of the box. Ha sacrificato la sicurezza alla facilità d'uso. Questo era accettabile vent'anni fa, quando i perimetri esistevano e le minacce erano esterne.</p>
+    <p>Microsoft ha progettato Active Directory per funzionare out of the box. Ha sacrificato la sicurezza alla facilità d'uso. Questo era accettabile vent'anni fa. Oggi non lo è più.</p>
 
-    <p>Oggi non lo è più.</p>
+    <div class="conclusion-box fade-in">
+      <div class="quote">Ogni permesso non esplicitamente necessario<br>è una superficie di attacco.</div>
+    </div>
 
-    <div class="insight-box fade-in">
-      <p><strong>Shift di paradigma:</strong> Ogni permesso non esplicitamente necessario è una superficie di attacco. La configurazione di default è il punto di partenza, non il punto di arrivo. Il lavoro del sysadmin non è seguire le linee guida, ma cap
+    <div style="margin-top:3rem; display:flex; justify-content:space-between; align-items:center;">
+      <a href="../index.html" style="font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--ink-light); text-decoration:none;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink-light)'">← Torna agli articoli</a>
+      <span style="font-family:'Barlow Condensed',sans-serif; font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; color:var(--ink-xlight);">The Black Sheep</span>
+    </div>
+
+  </article>
+
+  <footer>
+    <span>the.black.sheep</span>
+    <span>pubblicato su <a href="https://github.com/TheBlackSheepBlog/the.black.sheep">github</a></span>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    toggle.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
