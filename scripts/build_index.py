@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 ARTICLES_DIR = "articoli"
 OUTPUT_FILE = "index.html"
 FEED_FILE = "feed.xml"
-BASE_URL = "https://theblacksheepblog.github.io/the.black.sheep"
+BASE_URL = "https://theunchecked.github.io/theunchecked"
 
 def extract_article_data(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
@@ -99,9 +99,9 @@ def build_feed(articles):
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>The Black Sheep</title>
+    <title>The Unchecked</title>
     <link>{BASE_URL}/</link>
-    <description>Scrivo quello che penso. Fuori dal gregge.</description>
+    <description>Non dare niente per scontato. Mai.</description>
     <language>it</language>
     <lastBuildDate>{now}</lastBuildDate>
     <atom:link href="{BASE_URL}/feed.xml" rel="self" type="application/rss+xml"/>{items}
@@ -116,7 +116,7 @@ def build_index(articles):
     # Hero: prende il titolo dell'articolo più recente
     latest = articles[0] if articles else None
     hero_num = str(count).zfill(2)
-    hero_title = latest["title"] if latest else "The Black Sheep"
+    hero_title = latest["title"] if latest else "The Unchecked"
     # Mette in <mark> l'ultima parola del titolo
     words = hero_title.split()
     if len(words) > 1:
@@ -130,30 +130,30 @@ def build_index(articles):
   <script>(function(){{var t;try{{t=localStorage.getItem('theme')}}catch(e){{}}document.documentElement.dataset.theme=t||'dark'}})()</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Black Sheep</title>
-  <meta name="description" content="Scrivo quello che penso. Fuori dal gregge. IT, sicurezza, AI, lavoro.">
+  <title>The Unchecked</title>
+  <meta name="description" content="Non dare niente per scontato. Mai. IT, sicurezza, AI, lavoro.">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="The Black Sheep">
-  <meta property="og:title" content="The Black Sheep">
-  <meta property="og:description" content="Scrivo quello che penso. Fuori dal gregge. IT, sicurezza, AI, lavoro.">
+  <meta property="og:site_name" content="The Unchecked">
+  <meta property="og:title" content="The Unchecked">
+  <meta property="og:description" content="Non dare niente per scontato. Mai. IT, sicurezza, AI, lavoro.">
   <meta property="og:image" content="{BASE_URL}/assets/favicon.png">
   <meta property="og:url" content="{BASE_URL}/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Black Sheep">
-  <meta name="twitter:description" content="Scrivo quello che penso. Fuori dal gregge.">
+  <meta name="twitter:title" content="The Unchecked">
+  <meta name="twitter:description" content="Non dare niente per scontato. Mai.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="alternate" type="application/rss+xml" title="The Black Sheep" href="{BASE_URL}/feed.xml">
+  <link rel="alternate" type="application/rss+xml" title="The Unchecked" href="{BASE_URL}/feed.xml">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <nav>
-    <a href="index.html" class="logo">The Black Sheep</a>
+    <a href="index.html" class="logo">The Unchecked</a>
     <div class="nav-right">
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="#articoli">Articoli</a></li>
-        <li><a href="https://github.com/TheBlackSheepBlog/the.black.sheep" target="_blank">GitHub</a></li>
+        <li><a href="https://github.com/theunchecked/theunchecked" target="_blank">GitHub</a></li>
       </ul>
       <button id="theme-toggle" aria-label="Toggle theme">
         <svg id="theme-icon-dark" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -167,7 +167,7 @@ def build_index(articles):
       <div class="hero-eyebrow">Ultimo articolo</div>
       <span class="hero-number">{hero_num}</span>
       <h1 class="hero-title">{hero_title_html}</h1>
-      <p class="hero-desc">Scrivo quello che penso. Fuori dal gregge, dentro alla realtà.</p>
+      <p class="hero-desc">Non dare niente per scontato. Mai. dentro alla realtà.</p>
     </div>
     <div class="hero-right">
       <div class="hero-stat-label">Articoli</div>
@@ -177,9 +177,9 @@ def build_index(articles):
   </section>
 
   <div class="featured">
-    <div class="featured-label">The Black Sheep</div>
-    <div class="featured-quote">"Scrivo quello che penso. Fuori dal gregge, dentro alla realtà."</div>
-    <div class="featured-byline">TheBlackSheepBlog</div>
+    <div class="featured-label">The Unchecked</div>
+    <div class="featured-quote">"Non dare niente per scontato. Mai. dentro alla realtà."</div>
+    <div class="featured-byline">theunchecked</div>
   </div>
 
   <section class="section" id="articoli">
@@ -192,8 +192,8 @@ def build_index(articles):
   </section>
 
   <footer>
-    <span>the.black.sheep</span>
-    <span>pubblicato su <a href="https://github.com/TheBlackSheepBlog/the.black.sheep">github</a></span>
+    <span>theunchecked</span>
+    <span>pubblicato su <a href="https://github.com/theunchecked/theunchecked">github</a></span>
   </footer>
 
   <script>
