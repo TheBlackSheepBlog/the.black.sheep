@@ -3,7 +3,7 @@
    Stile Editoriale Condensed
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Space+Grotesk:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Space+Grotesk:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&family=Syne:wght@700;800&display=swap');
 
 /* ---- Variables ---- */
 :root {
@@ -62,13 +62,15 @@ nav {
 }
 
 .logo {
-  font-family: var(--font-head);
-  font-size: 1.3rem;
-  font-weight: 900;
-  letter-spacing: 5px;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--ink);
 }
+
+.logo span { color: #c0392b; font-weight: 800; }
 
 .nav-right {
   display: flex;
@@ -802,6 +804,20 @@ footer {
 
 footer a { color: var(--ink-light); }
 footer a:hover { color: var(--ink); }
+
+/* Read time badge */
+.read-time {
+  font-family: var(--font-head);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-left: 0.5rem;
+}
+
+.read-time::before {
+  content: '·  ';
+}
 
 /* ============================================
    PAGE TRANSITION FADE
