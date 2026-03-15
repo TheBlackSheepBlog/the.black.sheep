@@ -29,6 +29,12 @@
   --ink-black:  #f0ede8;
 }
 
+/* ---- Selection highlight ---- */
+::selection {
+  background: #c0392b;
+  color: #fafaf8;
+}
+
 /* ---- Reset ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
